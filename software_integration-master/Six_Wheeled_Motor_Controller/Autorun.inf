@@ -1,0 +1,2 @@
+[autorun]
+OPEN=.\html\autorunCD.exe start.htm README.txt .

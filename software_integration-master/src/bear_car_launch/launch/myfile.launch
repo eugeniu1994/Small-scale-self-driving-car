@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Node for interfacing the VESC controller-->
+  <include file="$(find vesc_driver)/launch/vesc_driver_node.launch"></include>
+
+  <!-- Low level linear speed controller-->
+  <include file="$(find low_level_speed_controller)/launch/four_wd.launch"></include>
+
+  <!-- Low level steering controller-->
+  <include file="$(find low_level_steering_controller)/launch/steering_controller_fourwd.launch"></include>
+
+  <!-- Odometry fusion, this launch file is also starting the sensors such as RealSense and Lidar-->
+   <!--False for "six_wheel" or True for "four_wheel"  -->
+  <arg name="is_four_wd" default="true"  />
+
+  <!-- True if running simulation, not the real car -->
+  <!--<arg name="is_simulation" default="false" />-->
+  <arg name="is_simulation" default="true" />
+
+  <!-- Which odometry inputs will you use toggle true if you will use  -->
+  <!-- These flags determines which sensor drivesr to start  -->
+  <arg name="wheel_odometry" default="true"  />
+  <arg name="imu_odometry" default="true"  />
+  <arg name="laser_scanner_odometry" default="true"  />
+
+  <!-- Starting Nodes -->
+
+  <include file="$(find odometry_agent)/launch/ekf_template.launch"/>
+
+  <group if="$(arg wheel_odometry)">
+    <group if="$(arg is_four_wd)">
+      <group unless="$(arg is_simulation)">
+        <include file="$(find vesc_ackermann)/launch/vesc_to_odom_node.launch"/>
+      </group>
+    </group>
+  </group>
+
+  <group if="$(arg imu_odometry)">
+    <group unless="$(arg is_simulation)">
+      <include file="$(find bear_car_launch)/launch/rs_imu.launch"/>
+    </group>
+  </group>
+
+  <group if="$(arg laser_scanner_odometry)">
+    <group unless="$(arg is_simulation)">
+       <include file="$(find bear_car_launch)/launch/rplidar_a3.launch"/>
+    </group>
+    <!--<include file="$(find odometry_agent)/launch/hector_configuration.launch">
+        <arg name="scan_topic_name" value="scan"/>
+    </include>-->
+    <include file="$(find rf2o_laser_odometry)/launch/rf2o_laser_odometry.launch"/>
+  </group>
+
+  <!-- Nodes Started -->
+
+  <!-- Publish Transforms -->
+
+  <group if="$(arg is_four_wd)">
+    <group unless="$(arg is_simulation)">
+      <include file="$(find odometry_agent)/launch/four_wheel_transforms.launch"/>
+    </group>
+  </group>
+
+  <group if="$(arg is_simulation)">
+    <include file="$(find odometry_agent)/launch/simulation_transforms.launch"/>
+  </group>
+
+  <group unless="$(arg is_simulation)">
+    <node pkg="rostopic" name="servo_init" type="rostopic" args=" pub /commands/servo/position std_msgs/Float64 'data: 0.45' -1 " />
+  </group>
+
+  <!-- Transforms Published -->
+
+  <!--Global and Local Planner-->
+  <include file="$(find pose_follower)/launch/navigation_stack_fourwd.launch"></include>
+
+
+  <arg name="geotiff_map_file_path" default="$(find hector_geotiff)/maps"/>
+
+  <!--<param name="/use_sim_time" value="true"/>-->
+  <param name="/use_sim_time" value="false"/>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find hector_slam_launch)/rviz_cfg/mapping_demo.rviz"/>
+
+  <include file="$(find hector_mapping)/launch/mapping_tif.launch"/>
+
+  <include file="$(find hector_geotiff)/launch/geotiff_mapper.launch">
+    <arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
+    <arg name="map_file_path" value="$(arg geotiff_map_file_path)"/>
+  </include>
+
+</launch>

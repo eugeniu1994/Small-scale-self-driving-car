@@ -1,0 +1,16 @@
+<launch>
+
+  <!-- Low level speed controller-->
+  <include file="$(find low_level_speed_controller)/launch/six_wd.launch">
+  </include>
+
+  <!-- Low level steering controller-->
+  <include file="$(find low_level_steering_controller)/launch/steering_controller_sixwd.launch">
+  </include>
+
+  <!-- Serial interface to the motor controller-->
+  <node pkg="serial_6w" name="motor_controller" type="serial_communicator_6w" required="true" output="screen">
+  </node>
+
+</launch>
+

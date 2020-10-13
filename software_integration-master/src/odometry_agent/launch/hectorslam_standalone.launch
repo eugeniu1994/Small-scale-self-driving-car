@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+
+<launch>
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_2_laser_tf"
+        args="0.1 0 0.2 0 0 0 base_link laser 100"/>
+
+
+  <!-- 
+    Standalone hector mapping
+    - Doesn't use wheel odometry
+    - Doesn't use imu
+    - just uses the laserscanner
+
+    description of the parameters:
+    http://wiki.ros.org/hector_mapping
+  -->
+
+  <arg name="scan_topic_name" default="/scan"/>
+
+  <node pkg="hector_mapping" type="hector_mapping" name="hector_mapping" output="screen">
+
+    <!-- Frame names -->
+    <param name="map_frame" value="map"/>
+    <param name="base_frame" value="base_link" />
+    <param name="odom_frame" value="base_link" />
+
+    <param name="tf_map_scanmatch_transform_frame_name" value="base_link"/>
+
+    <param name="pub_map_odom_transform" value="false"/>
+
+    <!-- Scan parameters -->
+    <param name="scan_subscriber_queue_size" value="5"/>
+    <param name="scan_topic" value="$(arg scan_topic_name)"/>
+
+    <param name="laser_min_dist" value="0.2"/>
+    <param name="laser_max_dist" value="20.0"/>
+
+    <!-- Map size / start point -->
+    <param name="map_resolution" value="0.050"/>
+    <param name="map_size" value="1024"/>
+    <param name="map_multi_res_levels" value="2" />
+
+    <param name="map_update_angle_thresh" value="0.06" />
+
+  </node>
+
+</launch>

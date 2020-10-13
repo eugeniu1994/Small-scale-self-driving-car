@@ -1,0 +1,8 @@
+PoseFollower:
+  holonomic: false
+  min_vel_lin: 0.1
+  K_linear: 0.3
+  K_rotational: 1.9
+  tolerance_rot: 2.0
+  tolerance_trans: 0.3
+  tolerance_timeout: 0.1

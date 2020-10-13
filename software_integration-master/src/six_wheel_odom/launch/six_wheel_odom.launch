@@ -1,0 +1,11 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+
+  <!-- Ackermann to VESC node -->
+  <rosparam file="$(find six_wheel_odom)/param/six_wheel_odom.yaml" command="load"/>
+  
+  <node pkg="six_wheel_odom" type="six_wheel_odom" name="six_wheel_odom"
+        output="screen" >
+  </node>
+
+</launch>

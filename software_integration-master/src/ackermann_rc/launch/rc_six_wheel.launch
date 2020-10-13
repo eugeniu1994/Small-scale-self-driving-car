@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+
+  <node name="serial_comm" pkg="rosserial_python" type="serial_node.py">
+    <param name="port" value="/dev/ttyUSB_remote"/>
+    <param name="baud" value="115200"/>
+  </node>
+
+  <node name="rc_to_six_wheel" pkg="ackermann_rc" type="rc_to_six_wheel" output="screen" required="true">
+    <rosparam file="$(find ackermann_rc)/param/rc_params_six_wheel.yaml" command="load"/>
+  </node>  
+  
+</launch>

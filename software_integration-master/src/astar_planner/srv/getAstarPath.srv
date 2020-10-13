@@ -1,0 +1,5 @@
+#ros service that takes the goal point to be reached as the input provides the path when the service is called
+
+geometry_msgs/PoseStamped goal
+---
+bool planningSucceed

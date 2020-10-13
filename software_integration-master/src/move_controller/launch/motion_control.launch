@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node name="move_controller" pkg="move_controller" type="main1.py" output="screen">
+	  </node>
+</launch>
+
+

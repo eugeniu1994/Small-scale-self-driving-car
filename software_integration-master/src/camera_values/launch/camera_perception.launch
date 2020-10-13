@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- If run on CPU set True, if GPU set False -->
+  <arg name="arg1" doc="use CPU or GPU" default="true" />
+
+  <!-- Set it false if run on real car -->
+  <arg name="is_simulation" doc="is simulation or real car" default="true" />
+
+  <!--running simulation perception module -->
+  <group if="$(arg is_simulation)">
+          <node name="camera_values" pkg="camera_values" type="main_Torch.py" output="screen">
+	    <param name="ARG1" value="$(arg arg1)" />
+	  </node>
+  </group>
+ 
+   <!--running real car perception module  -->
+  <group unless="$(arg is_simulation)">
+          <node name="camera_values" pkg="camera_values" type="main_TorchCar.py" output="screen">
+	    <param name="ARG1" value="$(arg arg1)" />
+	  </node>
+  </group>
+
+</launch>

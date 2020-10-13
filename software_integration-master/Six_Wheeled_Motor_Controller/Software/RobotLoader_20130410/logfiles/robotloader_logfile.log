@@ -1,0 +1,131 @@
+RobotLoader log file
+
+SystemLogger started at: Thu Jul 18 15:33:41 CEST 2019 (1563456821847)
+JVM System Information:
+
+java.runtime.name	=	Java(TM) SE Runtime Environment
+sun.boot.library.path	=	C:\Program Files (x86)\Java\jre1.8.0_211\bin
+java.vm.version	=	25.211-b12
+java.vm.vendor	=	Oracle Corporation
+java.vendor.url	=	http://java.oracle.com/
+path.separator	=	;
+java.vm.name	=	Java HotSpot(TM) Client VM
+file.encoding.pkg	=	sun.io
+user.country	=	US
+user.script	=	
+sun.java.launcher	=	SUN_STANDARD
+sun.os.patch.level	=	
+java.vm.specification.name	=	Java Virtual Machine Specification
+user.dir	=	C:\Users\user\Desktop\WTR_Wild_Thumper\Software\RobotLoader_20130410
+java.runtime.version	=	1.8.0_211-b12
+java.awt.graphicsenv	=	sun.awt.Win32GraphicsEnvironment
+java.endorsed.dirs	=	C:\Program Files (x86)\Java\jre1.8.0_211\lib\endorsed
+os.arch	=	x86
+java.io.tmpdir	=	C:\Users\user\AppData\Local\Temp\
+line.separator	=	
+
+java.vm.specification.vendor	=	Oracle Corporation
+user.variant	=	
+os.name	=	Windows 10
+sun.jnu.encoding	=	Cp1252
+java.library.path	=	.;.\lib
+sun.awt.enableExtraMouseButtons	=	true
+java.specification.name	=	Java Platform API Specification
+java.class.version	=	52.0
+sun.management.compiler	=	HotSpot Client Compiler
+os.version	=	10.0
+user.home	=	C:\Users\user
+user.timezone	=	Europe/Berlin
+java.awt.printerjob	=	sun.awt.windows.WPrinterJob
+file.encoding	=	Cp1252
+java.specification.version	=	1.8
+java.class.path	=	RobotLoader_lib.jar;lib\jd2xx.jar;lib\RXTXcomm.jar;lib\comm.jar
+user.name	=	user
+java.vm.specification.version	=	1.8
+sun.java.command	=	de.dsh.rp6loader.Init
+java.home	=	C:\Program Files (x86)\Java\jre1.8.0_211
+sun.arch.data.model	=	32
+user.language	=	en
+java.specification.vendor	=	Oracle Corporation
+awt.toolkit	=	sun.awt.windows.WToolkit
+java.vm.info	=	mixed mode
+java.version	=	1.8.0_211
+java.ext.dirs	=	C:\Program Files (x86)\Java\jre1.8.0_211\lib\ext;C:\WINDOWS\Sun\Java\lib\ext
+sun.boot.class.path	=	C:\Program Files (x86)\Java\jre1.8.0_211\lib\resources.jar;C:\Program Files (x86)\Java\jre1.8.0_211\lib\rt.jar;C:\Program Files (x86)\Java\jre1.8.0_211\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jre1.8.0_211\lib\jsse.jar;C:\Program Files (x86)\Java\jre1.8.0_211\lib\jce.jar;C:\Program Files (x86)\Java\jre1.8.0_211\lib\charsets.jar;C:\Program Files (x86)\Java\jre1.8.0_211\lib\jfr.jar;C:\Program Files (x86)\Java\jre1.8.0_211\classes
+java.vendor	=	Oracle Corporation
+file.separator	=	\
+java.vendor.url.bug	=	http://bugreport.sun.com/bugreport/
+sun.io.unicode.encoding	=	UnicodeLittle
+sun.cpu.endian	=	little
+sun.desktop	=	windows
+sun.cpu.isalist	=	pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86
+
+
+JVM Memory Information:
+Free: 12021032 (11739 Kb)
+Max: 259522560 (253440 Kb)
+Total: 16252928 (15872 Kb)
+
+
+Initializing...
+RobotLoader Version: 2.5a
+Last build: 19.3.2013
+Loading Configuration...
+Done!
+Global->loadLocalizedText
+Loading Board Library...
+Done!
+OS:WIN
+Initializing native communication library: JD2XX
+--> USB0 |  | 
+--> USB0 |  | 
+UDP listener on 55555 active!
+Add Connection Entry: 192.168.10.171:2000
+TERMINAL: RobotLoader Serial Terminal
+TERMINAL:  - type ".help" for command list!
+NETWORK TERMINAL: RobotLoader Network / WIFI Terminal
+NETWORK TERMINAL:  - type ".help" for command list!
+Loading File List...
+Done!
+Loading File List Network...
+Done!
+Loading WIFI Configuration...
+Done!
+Init.2 done.
+Global->Enabling log panel...
+RobotLoader is ready to go.
+Message (Thu Jul 18 15:33:52 CEST 2019) : RP6Main.actionPerformed: REFRESH
+--> USB0 | FT231X USB UART | DN009NXR
+Message (Thu Jul 18 15:33:54 CEST 2019) : RP6Main.actionPerformed: CONNECT
+Trying to open port: USB0 | FT231X USB UART | DN009NXR
+--> USB0 | FT231X USB UART | DN009NXR
+Portlist: USB0 | FT231X USB UART | DN009NXR
+USB0 | FT231X USB UART | DN009NXR open @38400baud
+Device info:  --> Desc: FT231X USB UART
+Device info:  --> ID: 67330069
+Set Comport...
+Baudrate is set to: 38400
+OK!
+Try to get ID...
+
+Finished 0ms
+ERROR (1)  ||| Timeout: The target has not responded!
+Are you sure the cable is properly connected and target has power?
+Are the correct USB Drivers installed
+and did you select the correct Port?
+Message (Thu Jul 18 15:34:01 CEST 2019) : RP6LoaderGUI.windowClosing: WINDOW_CLOSING,opposite=null,oldState=0,newState=0
+Saving File List...
+Done!
+Saving File List Network...
+Done!
+Saving configuration...
+Done!
+
+JVM Memory Information:
+Free: 3775320 (3686 Kb)
+Max: 259522560 (253440 Kb)
+Total: 16252928 (15872 Kb)
+
+Trying to close port...
+Port Closed!
+Program terminated! (1563456841458)

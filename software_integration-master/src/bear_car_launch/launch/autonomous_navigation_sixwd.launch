@@ -1,0 +1,26 @@
+
+<launch>
+
+  <!-- Launch file for setting up everything for a complete autonomous navigation based on
+       odometry (wheel,laser,imu) and move_base navigation stack-->
+
+  <!-- Node for interfacing the low-level 6WD platform controller, this also includes serial communication and
+       the speed controllers-->
+  <include file="$(find bear_car_launch)/launch/low_level_starter_sixwd.launch">
+  </include>
+
+  <!-- 6WD odometry publisher-->
+  <include file="$(find six_wheel_odom)/launch/six_wheel_odom.launch">
+  </include>
+
+  <!-- Odometry fusion, this launch file is also starting the sensors such as RealSense and Lidar-->
+  <include file="$(find odometry_agent)/launch/odometry_agent.launch">
+    <arg name="is_four_wd" value="false"/>
+  </include>
+
+  <!--Global and Local Planner, PID controllers-->
+  <include file="$(find pose_follower)/launch/navigation_stack_sixwd.launch">
+  </include>
+
+</launch>
+

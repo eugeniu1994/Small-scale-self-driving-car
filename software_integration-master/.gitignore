@@ -1,0 +1,11 @@
+/build
+/devel
+/src/CMakeLists.txt
+/.vscode
+/.idea/
+*.ko
+*.mk
+*.pyc
+/.catkin_workspace
+
+*.blend1

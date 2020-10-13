@@ -1,0 +1,27 @@
+<launch>
+
+    <!--
+    This file configures hector slam to be used with RP Lidar A3 Laser Scanner (real or simulated).
+
+  - if no IMU is used (when the sensor is carried by hand), the tf frames
+    slam_base_footprint, slam_base_stabilized and slam_base_link are equal.
+  - hector slam only uses the roll and pitch motion recorded by the IMU to
+    filter out scans that hit the ceiling or floor. The yaw rotation isn't used.
+  - the tf frame slam_base_footprint is published by hector slam and estimates the
+    robot position.
+-->
+
+    <!--node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link"
+          args="0.0 0.0 0.0 0 0 0.0 /slam_base_footprint /slam_base_link 10"/-->
+
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
+    args="0.2245 0.0 0.2 0.0 0.0 0.0 /base_link /laser 10"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="base_to_camera" 
+    args="0.15 0.0 0.27 0.0 0.0 0.0 /base_link /camera_link  10"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="map_to_odom"
+    args="0.0 0.0 0.0 0.0 0.0 0.0 /map /odom 10"/>
+	
+
+</launch>

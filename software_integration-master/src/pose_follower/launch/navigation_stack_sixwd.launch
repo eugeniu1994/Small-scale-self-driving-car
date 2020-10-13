@@ -1,0 +1,36 @@
+<launch>
+
+
+
+        <!--  ************** Navigation ***************  -->
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+  	  	<rosparam file="$(find pose_follower)/cfg/diff_drive/costmap_common_params.yaml" command="load" ns="global_costmap" />
+  	 	<rosparam file="$(find pose_follower)/cfg/diff_drive/costmap_common_params.yaml" command="load" ns="local_costmap" />
+  		<rosparam file="$(find pose_follower)/cfg/diff_drive/local_costmap_params.yaml" command="load" />
+  		<rosparam file="$(find pose_follower)/cfg/diff_drive/global_costmap_params.yaml" command="load" />
+  		<rosparam file="$(find pose_follower)/cfg/diff_drive/teb_local_planner_params.yaml" command="load" />
+		<rosparam file="$(find pose_follower)/cfg/diff_drive/further.yaml" command="load" />
+		<rosparam file="$(find pose_follower)/cfg/diff_drive/pose_follower.yaml" command="load" />
+
+
+
+		<param name="base_global_planner" value="global_planner/GlobalPlanner" />
+		<param name="planner_frequency" value="0.1" />
+		<param name="planner_patience" value="5.0" />
+
+		<param name="base_local_planner" value="pose_follower/PoseFollower" />
+		<param name="controller_frequency" value="15.0" />
+		<param name="controller_patience" value="15.0" />
+		<remap from="odom" to="/odom_rf2o"/>
+        <param name="clearing_rotation_allowed" value="false" />
+			
+	</node>
+
+	<!-- Include PID controllers-->
+	<include file="$(find pose_follower)/launch/six_pid_controller.launch" />
+
+	<node pkg="rostopic" name="linear_pid_init" type="rostopic"  args=" pub /linear_pid/setpoint std_msgs/Float64 'data: 0.0' -1 " />
+	<node pkg="rostopic" name="steer_pid_init" type="rostopic"  args=" pub /steer_pid/setpoint std_msgs/Float64 'data: 0.0' -1 " />
+	<!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find teb_local_planner_tutorials)/cfg/rviz_navigation.rviz"/-->
+
+</launch>

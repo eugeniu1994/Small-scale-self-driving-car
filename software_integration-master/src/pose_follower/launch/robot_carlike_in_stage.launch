@@ -1,0 +1,67 @@
+<!-- 
+  Simulate a carlike robot with the teb_local_planner in stage:
+  - stage
+  - map_server
+  - move_base
+  - static map
+  - amcl
+  - rviz view
+ -->
+<launch>
+       
+
+        <!--  ************** Global Parameters ***************  -->
+        
+        <!--  ************** Stage Simulator ***************  -->
+	<!--node pkg="stage_ros" type="stageros" name="stageros" args="$(find teb_local_planner_tutorials)/stage/maze_carlike.world">
+		<remap from="base_scan" to="scan"/>
+  	</node-->
+
+        <!--  ************** Navigation ***************  -->
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+  	  	<rosparam file="$(find pose_follower)/cfg/carlike/costmap_common_params.yaml" command="load" ns="global_costmap" />
+  	 	<rosparam file="$(find pose_follower)/cfg/carlike/costmap_common_params.yaml" command="load" ns="local_costmap" />
+  		<rosparam file="$(find pose_follower)/cfg/carlike/local_costmap_params.yaml" command="load" />
+  		<rosparam file="$(find pose_follower)/cfg/carlike/global_costmap_params.yaml" command="load" />
+  		<rosparam file="$(find pose_follower)/cfg/carlike/pose_follower.yaml" command="load" />
+
+		<param name="base_global_planner" value="global_planner/GlobalPlanner" />
+		<param name="planner_frequency" value="1.0" />
+		<param name="planner_patience" value="5.0" />
+
+		<param name="base_local_planner" value="pose_follower/PoseFollower" />
+		<param name="controller_frequency" value="5.0" />
+		<param name="controller_patience" value="15.0" />
+		<remap from="odom" to="/wheel_odom"/>
+                <param name="clearing_rotation_allowed" value="false" /> <!-- Our carlike robot is not able to rotate in place -->
+	</node>
+
+
+	<!--  ****** Maps *****  -->
+	<!--<node name="map_server" pkg="map_server" type="map_server" args="$(find teb_local_planner_tutorials)/maps/maze.yaml" output="screen">
+                <param name="frame_id" value="map"/>
+	</node>-->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find pose_follower)/maps/mymap.yaml" output="screen">
+                <param name="frame_id" value="map"/>
+	</node>
+
+	<node pkg="amcl" type="amcl" name="amcl" output="screen">
+		<rosparam file="$(find pose_follower)/cfg/amcl_params.yaml" command="load" />
+
+	        <param name="initial_pose_x"            value="0"/>
+		<param name="initial_pose_y"            value="0"/>
+		<param name="initial_pose_a"            value="0"/>
+	</node>
+	<!--<node pkg="amcl" type="amcl" name="amcl" output="screen">
+		<rosparam file="$(find teb_local_planner_tutorials)/cfg/amcl_params.yaml" command="load" />
+
+	        <param name="initial_pose_x"            value="1"/>
+		<param name="initial_pose_y"            value="1"/>
+		<param name="initial_pose_a"            value="0"/>
+	</node>-->
+
+
+	  <!--  **************** Visualisation ****************  -->
+	  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pose_follower)/cfg/rviz_navigation.rviz"/>
+
+</launch>
